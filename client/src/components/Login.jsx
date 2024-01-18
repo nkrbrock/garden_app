@@ -1,5 +1,6 @@
 import React, {Fragment} from "react";
 import { Link } from "react-router-dom";
+import Footer  from "./Footer";
 
 function Login() {
     return(
@@ -22,10 +23,9 @@ function Login() {
                     <Link to="/user">
                     <button className="btn btn-primary w-100 py-2">Log In</button>
                     </Link>
-                    <p className="mt-5 mb-3 text-body-secondary">© 2017–2023</p>
                 </form>
             </div>
-            
+            <Footer />
         </Fragment>
     )
 }
