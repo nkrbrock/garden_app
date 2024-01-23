@@ -84,15 +84,10 @@ app.put("/user/:userid/:plantid", async(req, res) => {
     }
 });
 
-//Create user entry
+//LOGIN AND REGISTRATION ROUTES
+app.use("/auth", require("./routes/jwtAuth"));
 
-//Read all user entries
-
-//Read user entry 
-
-//Update user entry
-
-//Delete user update
+app.use("/dashboard", require("./routes/dashboard"));
 
 app.listen(5000, () => {
     console.log("server running!");

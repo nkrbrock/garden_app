@@ -14,6 +14,7 @@ function PlantInput() {
             const possiblePlants = await fetch(`${host}/plants`);
             const jsonData = await possiblePlants.json();
             
+            //TODO: MAKE DYNAMIC FOR EACH USER
             const userPlants = await fetch(`${host}/user/1`);
             const userData = await userPlants.json();
 
@@ -33,6 +34,7 @@ function PlantInput() {
                 } else {
                     const body = {plantName}
                     const response = await fetch(
+                        //TODO: MAKE DYNAMIC FOR EACH USER
                         `${host}/user/1`,
                         {
                             method: "PUT",
@@ -53,12 +55,12 @@ function PlantInput() {
 
     return (
         <Fragment>
-            <h1>Hello, UserName!</h1>
+            <h1 className="mt-5">Hello, UserName!</h1>
             <div className="container">
-                <form className=" d-flex m-5" onSubmit={addPlant}>
+                <form className=" d-flex my-5" onSubmit={addPlant}>
                     <input
                         type="text"
-                        className="form-control"
+                        className="me-3 form-control"
                         placeholder="Scientific Name"
                         value={plantName}
                         onChange={e => setPlantName(e.target.value)}

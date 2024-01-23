@@ -3,12 +3,13 @@ import Delete from "./Delete";
 
 function PlantList() {
     const [plants, setPlants] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const host = "http://localhost:5000";
 
     const getPlants = async() => {
         try {
-            //TODO: replace 1 with user id
+            //TODO: MAKE DYNAMIC FOR EACH USER
             const response = await fetch(`${host}/user/1`);
             const jsonData = await response.json();
 
@@ -21,15 +22,26 @@ function PlantList() {
 
 
     useEffect(() => {
+        setLoading(true);
         getPlants();
+        setTimeout(() => {
+            setLoading(false)
+        }, 500);
+        
     }, []);
+
+    if (loading) {
+        return (
+            <h1>Loading...</h1>
+        );
+    }
 
     return(
         <Fragment>
-            <div className="container">
+            <div className="container plantlist">
                 <div className="row">
                     {plants.map(plant => (
-                        <div className="col-md-3 mb-5"  key={plant.id}>
+                        <div className="col-lg-3 col-md-4 col-sm-6 mb-5"  key={plant.id}>
                             <div className="card">
                                 <div className="card-body">
                                     <p className="card-text">Common Name: {plant.cname}</p>

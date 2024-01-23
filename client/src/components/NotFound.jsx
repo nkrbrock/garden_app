@@ -1,24 +1,21 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import PlantInput from "./PlantInput";
-import PlantList from "./PlantList";
 import Footer from "./Footer";
 
-function Home() {
-    return(
+function NotFound() {
+    return (
         <Fragment>
             <div className="container">
-                <PlantInput />
-                <PlantList />
+                <h1>The page you are looking for could not be found</h1>
                 <Link to="/">
-                    <button className="btn btn-primary">
-                        Log Out
+                    <button className="btn btn-dark">
+                        Go to main page
                     </button>
                 </Link>
             </div>
             <Footer />
         </Fragment>
-    )
-};
+    );
+}
 
-export default Home;
+export default NotFound;
