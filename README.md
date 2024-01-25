@@ -15,3 +15,4 @@ Things that still need to be improved:
 - add a section detailing which plants are included in the database
 - finish implementing toast notifications
 - improve visual layout
+- add functionality to login in with other parties (Google, X, etc)
