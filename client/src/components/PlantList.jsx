@@ -35,6 +35,12 @@ const PlantList = ({user_id}) => {
         );
     }
 
+    if (plants.length === 0) {
+        return (
+            <h2>Type your first entry above!</h2>
+        );
+    }
+
     return(
         <Fragment>
             <div className="container plantlist">
