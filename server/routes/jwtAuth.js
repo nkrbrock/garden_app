@@ -3,7 +3,7 @@ const pool = require('../db');
 const bcrypt = require("bcrypt");
 const jwtGenerator = require("../utils/jwtGenerator");
 const validInfo = require("../middleware/validinfo");
-const authorization = require("../middleware/authorization");
+const authorize = require("../middleware/authorization");
 
 //REGISTERING
 //Create user entry
@@ -17,7 +17,7 @@ router.post("/register", validInfo, async (req, res) => {
         );
 
         if (user.rows.length !== 0) {
-            return res.status(401).send("User already exists");
+            return res.status(401).json("User already exists");
         }
 
         const salt = await bcrypt.genSalt(15);
@@ -69,7 +69,7 @@ router.post("/login", validInfo, async (req, res) => {
     }
 });
 
-router.get("/verify", authorization, async (req,  res) => {
+router.post("/verify", authorize, async (req,  res) => {
     try {
         res.json(true);
     } catch (error) {

@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 
 //LOGIN AND REGISTRATION ROUTES
-app.use("/auth", require("./routes/jwtAuth"));
+app.use("/authentication", require("./routes/jwtAuth"));
 app.use("/dashboard", require("./routes/dashboard"));
 
 //Create user plant entry
@@ -87,8 +87,6 @@ app.put("/dashboard/:userid/:plantid", async(req, res) => {
         console.error(error.message);
     }
 });
-
-
 
 app.listen(5000, () => {
     console.log("server running!");

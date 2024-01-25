@@ -1,7 +1,7 @@
 import React, {Fragment, useState} from "react";
 import Alert from "./Alert";
 
-const PlantInput = () => {
+const PlantInput = ({user_id}) => {
     const [plantName, setPlantName] = useState("");
 
     const host = "http://localhost:5000";
@@ -15,7 +15,7 @@ const PlantInput = () => {
             const jsonData = await possiblePlants.json();
             
             //TODO: MAKE DYNAMIC FOR EACH USER
-            const userPlants = await fetch(`${host}/dashboard/4c397315-3b56-4652-b673-f98219e4517e`);
+            const userPlants = await fetch(`${host}/dashboard/${user_id}`);
             const userData = await userPlants.json();
 
             var snames = [];
@@ -35,7 +35,7 @@ const PlantInput = () => {
                     const body = {plantName}
                     const response = await fetch(
                         //TODO: MAKE DYNAMIC FOR EACH USER
-                        `${host}/dashboard/4c397315-3b56-4652-b673-f98219e4517e`,
+                        `${host}/dashboard/${user_id}`,
                         {
                             method: "PUT",
                             headers: {"Content-Type": "application/json"},

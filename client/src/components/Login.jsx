@@ -1,6 +1,7 @@
 import React, {Fragment, useState} from "react";
 import { Link } from "react-router-dom";
 import Footer  from "./Footer";
+import { toast } from "react-toastify";
 
 const Login = ({ setAuth }) => {
     const [inputs, setInputs] = useState({
@@ -19,7 +20,7 @@ const Login = ({ setAuth }) => {
         try {
             const body = {email, password};
 
-            const response = await fetch("http://localhost:5000/auth/login", {
+            const response = await fetch("http://localhost:5000/authentication/login", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(body)
@@ -27,9 +28,16 @@ const Login = ({ setAuth }) => {
 
             const parseRes = await response.json();
 
-            localStorage.setItem("token", parseRes.jwtToken);
+            if (parseRes.jwtToken) {
+                localStorage.setItem("token", parseRes.jwtToken);
+                setAuth(true);
+                toast.success("login successful");
+            } else {
+                setAuth(false);
+                toast.error(parseRes);
+            }
 
-            setAuth(true);
+            
         } catch (error) {
             console.error(error.message);
         }

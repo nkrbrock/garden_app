@@ -12,10 +12,10 @@ module.exports = function(req, res, next) {
 
         const verify = jwt.verify(token, process.env.JWTSECRET);
 
-        req.user = reviry.user;
+        req.user = verify.user;
         next();
     } catch (error) {
         console.error(error.message);
-        return res.status(403).json("Not Authorized");
+        return res.status(403).json({msg: "Not Authorized"});
     }
 }

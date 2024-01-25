@@ -7,7 +7,7 @@ router.post("/", authorize, async(req, res) => {
     try {
         const user = await pool.query(
             "SELECT uname FROM users WHERE user_id = $1",
-            [req.user]
+            [req.user.id]
         );
 
         res.json(user.rows[0]);

@@ -1,6 +1,7 @@
 import React, {Fragment, useState} from "react";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
+import { toast } from "react-toastify";
 
 const Register = ({setAuth}) => {
 
@@ -25,7 +26,7 @@ const Register = ({setAuth}) => {
         try {
             const body = {fname, lname, uname, password, email,};
 
-            const response = await fetch("http://localhost:5000/auth/register",
+            const response = await fetch("http://localhost:5000/authentication/register",
             {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
@@ -33,10 +34,16 @@ const Register = ({setAuth}) => {
             });
 
             const parseRes = await response.json();
-
-            localStorage.setItem("token", parseRes.jwtToken);
-
-            setAuth(true);
+            
+            if(parseRes.jwtToken) {
+                localStorage.setItem("token", parseRes.jwtToken);
+                setAuth(true);
+                toast.success("Registered successfully");
+            } else {
+                setAuth(false);
+                toast.error(parseRes);
+            }
+            
         } catch (error) {
             console.error(error.message);
         }
