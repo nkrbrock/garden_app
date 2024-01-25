@@ -7,14 +7,14 @@ const Delete = ({plant}) => {
         e.preventDefault();
         try {
             const response = await fetch(
-                `${host}/user/1/${plant.id}`,
+                `${host}/dashboard/4c397315-3b56-4652-b673-f98219e4517e/${plant.id}`,
                 {
                     method: "PUT",
                     headers: {"Content-Type": "application/json"}
                 }
             );
 
-            window.location = '/user';
+            window.location = '/dashboard';
         } catch (error) {
             console.error(error.message);
         }

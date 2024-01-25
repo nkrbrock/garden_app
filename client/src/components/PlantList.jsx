@@ -1,7 +1,7 @@
 import React, {Fragment, useState, useEffect} from "react";
 import Delete from "./Delete";
 
-function PlantList() {
+const PlantList = () => {
     const [plants, setPlants] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -10,11 +10,10 @@ function PlantList() {
     const getPlants = async() => {
         try {
             //TODO: MAKE DYNAMIC FOR EACH USER
-            const response = await fetch(`${host}/user/1`);
+            const response = await fetch(`${host}/dashboard/4c397315-3b56-4652-b673-f98219e4517e`);
             const jsonData = await response.json();
 
             setPlants(jsonData);
-            console.log(jsonData);
         } catch (error) {
             console.error(error.message);
         }

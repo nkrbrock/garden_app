@@ -2,15 +2,44 @@ import React, {Fragment, useState} from "react";
 import { Link } from "react-router-dom";
 import Footer  from "./Footer";
 
-function Login() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+const Login = ({ setAuth }) => {
+    const [inputs, setInputs] = useState({
+        email: "",
+        password: ""
+    });
+
+    const { email, password } = inputs;
+
+    const onChange = (e) => {
+        setInputs({...inputs, [e.target.name]: e.target.value});
+    };
+
+    const onSubmitForm = async(e) => {
+        e.preventDefault();
+        try {
+            const body = {email, password};
+
+            const response = await fetch("http://localhost:5000/auth/login", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify(body)
+            });
+
+            const parseRes = await response.json();
+
+            localStorage.setItem("token", parseRes.jwtToken);
+
+            setAuth(true);
+        } catch (error) {
+            console.error(error.message);
+        }
+    };
 
     return(
         <Fragment>
             <Link to="/">Back</Link>
             <div className="container">
-                <form>
+                <form onSubmit={onSubmitForm}>
                     <img className="mb-4" src="" alt="" width="72" height="57" />
                     <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
 
@@ -18,10 +47,10 @@ function Login() {
                     <input 
                         type="email" 
                         className="form-control" 
-                        id="floatingInput" 
+                        name="email" 
                         placeholder="name@example.com" 
                         value={email}
-                        onChange={e => setEmail(e.target.value)}
+                        onChange={e => onChange(e)}
                     />
                     <label>Email address</label>
                     </div>
@@ -29,18 +58,16 @@ function Login() {
                     <input 
                         type="password" 
                         className="form-control" 
-                        id="floatingPassword" 
+                        name="password" 
                         placeholder="Password" 
                         value={password}
-                        onChange={e => setPassword(e.target.value)}
+                        onChange={e => onChange(e)}
                     />
                     <label>Password</label>
                     </div>
-
-                    <Link to="/user">
-                    <button className="btn btn-primary w-100 py-2">Log In</button>
-                    </Link>
+                    <button className="btn btn-primary py-2">Log In</button>
                 </form>
+                <Link to="/register">Register</Link>
             </div>
             <Footer />
         </Fragment>

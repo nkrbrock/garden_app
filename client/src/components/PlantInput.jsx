@@ -1,7 +1,7 @@
 import React, {Fragment, useState} from "react";
 import Alert from "./Alert";
 
-function PlantInput() {
+const PlantInput = () => {
     const [plantName, setPlantName] = useState("");
 
     const host = "http://localhost:5000";
@@ -15,7 +15,7 @@ function PlantInput() {
             const jsonData = await possiblePlants.json();
             
             //TODO: MAKE DYNAMIC FOR EACH USER
-            const userPlants = await fetch(`${host}/user/1`);
+            const userPlants = await fetch(`${host}/dashboard/4c397315-3b56-4652-b673-f98219e4517e`);
             const userData = await userPlants.json();
 
             var snames = [];
@@ -35,7 +35,7 @@ function PlantInput() {
                     const body = {plantName}
                     const response = await fetch(
                         //TODO: MAKE DYNAMIC FOR EACH USER
-                        `${host}/user/1`,
+                        `${host}/dashboard/4c397315-3b56-4652-b673-f98219e4517e`,
                         {
                             method: "PUT",
                             headers: {"Content-Type": "application/json"},
@@ -43,7 +43,7 @@ function PlantInput() {
                         }
                     );
 
-                    window.location = "/user";
+                    window.location = "/dashboard";
                 }
             } else {
                 setAlert("missing");
@@ -55,7 +55,6 @@ function PlantInput() {
 
     return (
         <Fragment>
-            <h1 className="mt-5">Hello, UserName!</h1>
             <div className="container">
                 <form className=" d-flex my-5" onSubmit={addPlant}>
                     <input

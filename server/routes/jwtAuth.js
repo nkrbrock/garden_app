@@ -8,12 +8,11 @@ const authorization = require("../middleware/authorization");
 //REGISTERING
 //Create user entry
 router.post("/register", validInfo, async (req, res) => {
+    const { fname, lname, uname, password, email } = req.body;
     try {
-        const { fname, lname, uname, password, email } = req.body;
-
         // check if user exists
         const user = await pool.query(
-            "SELECT * FROM userdata WHERE email=$1",
+            "SELECT * FROM users WHERE email=$1",
             [email]
         );
 
@@ -21,25 +20,25 @@ router.post("/register", validInfo, async (req, res) => {
             return res.status(401).send("User already exists");
         }
 
-        const saltRound = 15;
-        const salt = await bcrypt.genSalt(saltRound);
+        const salt = await bcrypt.genSalt(15);
 
         const bcryptpw = await bcrypt.hash(password, salt);
 
-        const newUser = await pool.query(
-            "INSERT INTO userdata (fname, lname, uname, password, email) VALUES($1, $2, $3, $4, $5) RETURNING *",
+        let newUser = await pool.query(
+            "INSERT INTO users (fname, lname, uname, password, email) VALUES($1, $2, $3, $4, $5) RETURNING *",
             [fname, lname, uname, bcryptpw, email]
         );
 
-        const token = jwtGenerator(newUser.rows[0].id);
+        const jwtToken = jwtGenerator(newUser.rows[0].user_id);
 
-        res.json({ token });
+        return res.json({ jwtToken });
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Server Error");
     }
 });
 
+//LOGIN
 //Read user entry 
 router.post("/login", validInfo, async (req, res) => {
     const { email, password } = req.body;
@@ -47,7 +46,7 @@ router.post("/login", validInfo, async (req, res) => {
     try {
 
         const user = await pool.query(
-            "SELECT * FROM userdata WHERE email=$1",
+            "SELECT * FROM users WHERE email=$1",
             [email]
         );
 
@@ -61,9 +60,9 @@ router.post("/login", validInfo, async (req, res) => {
             return res.status(401).json("Password or Email is incorrect");
         }
 
-        const token = jwtGenerator(user.rows[0].id);
+        const jwtToken = jwtGenerator(user.rows[0].user_id);
 
-        res.json(token);
+        return res.json({jwtToken});
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Server Error");

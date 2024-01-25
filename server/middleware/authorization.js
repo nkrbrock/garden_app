@@ -1,19 +1,19 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-module.exports = async (req,res,next) => {
+module.exports = function(req, res, next) {
     try {
         
-        const jwtToken = req.header("token");
+        const token = req.header("jwt_token");
 
-        if (!jwtToken) {
-            return res.status(403).json("Not Authorized");
+        if (!token) {
+            return res.status(403).json({msg: "Not Authorized"});
         }
 
-        const payload = jwt.verify(jwtToken, process.env.JWTSECRET);
+        const verify = jwt.verify(token, process.env.JWTSECRET);
 
-        req.user = payload.user;
-        
+        req.user = reviry.user;
+        next();
     } catch (error) {
         console.error(error.message);
         return res.status(403).json("Not Authorized");

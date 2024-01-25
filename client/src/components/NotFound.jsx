@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
 
-function NotFound() {
+const NotFound = () => {
     return (
         <Fragment>
             <div className="container">
