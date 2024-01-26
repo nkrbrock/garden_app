@@ -14,7 +14,6 @@ const PlantInput = ({user_id}) => {
             const possiblePlants = await fetch(`${host}/plants`);
             const jsonData = await possiblePlants.json();
             
-            //TODO: MAKE DYNAMIC FOR EACH USER
             const userPlants = await fetch(`${host}/dashboard/${user_id}`);
             const userData = await userPlants.json();
 
@@ -34,7 +33,6 @@ const PlantInput = ({user_id}) => {
                 } else {
                     const body = {plantName}
                     const response = await fetch(
-                        //TODO: MAKE DYNAMIC FOR EACH USER
                         `${host}/dashboard/${user_id}`,
                         {
                             method: "PUT",
