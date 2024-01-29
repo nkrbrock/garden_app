@@ -12,7 +12,7 @@ const Delete = ({plant, setPlantsChange}) => {
             myHeaders.append("Content-Type", "application/json");
             myHeaders.append("jwt_token", localStorage.token)
 
-            const response = await fetch(
+            await fetch(
                 `${host}/dashboard/${plant.id}`,
                 {
                     method: "PUT",

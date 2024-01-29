@@ -40,7 +40,7 @@ const PlantInput = ({ setPlantsChange}) => {
                     setAlert("info");
                 } else {
                     const body = {plantName}
-                    const response = await fetch(
+                    await fetch(
                         `${host}/dashboard/`,
                         {
                             method: "PUT",
@@ -50,6 +50,7 @@ const PlantInput = ({ setPlantsChange}) => {
                     );
 
                     setPlantsChange(true);
+                    setPlantName("");
                 }
             } else {
                 setAlert("missing");

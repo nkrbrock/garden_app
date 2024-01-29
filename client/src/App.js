@@ -5,8 +5,6 @@ import Portal from "./components/Portal";
 import Register from "./components/Register";
 import NotFound from "./components/NotFound";
 import Dashboard from "./components/Dashboard";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [isAuthenticated, setAuthenticated] = useState(false);

@@ -11,8 +11,5 @@ Node
 Authentication & Authorization with JWT
 
 Things that still need to be improved:
-- website resets to portal whenever a user adds or deletes an entry
 - add a section detailing which plants are included in the database
-- finish implementing toast notifications
-- improve visual layout
 - add functionality to login in with other parties (Google, X, etc)

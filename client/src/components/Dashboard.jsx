@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from "react";
 import PlantInput from "./PlantInput";
 import PlantList from "./PlantList";
 import Footer from "./Footer";
-import { toast } from "react-toastify";
 
 const Dashboard = ({ setAuth }) => {
 
@@ -34,7 +33,6 @@ const Dashboard = ({ setAuth }) => {
         e.preventDefault();
         localStorage.removeItem("token");
         setAuth(false);
-        toast.success("Logged out successfully");
     };
 
     useEffect(() => {

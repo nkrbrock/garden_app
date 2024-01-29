@@ -9,6 +9,7 @@ const Portal = () => {
                         <div className="p-5 mb-4 bg-body-tertiary rounded-3">
                             <div className="container-fluid py-5">
                                 <h1 className="display-5 fw-bold">Welcome!</h1>
+                                <p>Note: Logging in with 3rd parties is not currently implemented.</p>
                                 <div className="row">
                                     <div className="col">
                                         <div className="d-flex flex-column">

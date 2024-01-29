@@ -5,9 +5,6 @@ const PlantList = ({allPlants, setPlantsChange}) => {
     const [plants, setPlants] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const host = "http://localhost:5000";
-
-
     useEffect(() => {
         setLoading(true);
         setPlants(allPlants);

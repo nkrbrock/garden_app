@@ -1,7 +1,6 @@
 import React, {Fragment, useState} from "react";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
-import { toast } from "react-toastify";
 
 const Register = ({setAuth}) => {
 
@@ -38,10 +37,8 @@ const Register = ({setAuth}) => {
             if(parseRes.jwtToken) {
                 localStorage.setItem("token", parseRes.jwtToken);
                 setAuth(true);
-                toast.success("Registered successfully");
             } else {
                 setAuth(false);
-                toast.error(parseRes);
             }
             
         } catch (error) {
