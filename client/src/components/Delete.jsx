@@ -1,19 +1,19 @@
 import React, { Fragment } from "react";
 
-const Delete = ({plant}) => {
+const Delete = ({user_id, plant}) => {
     const host = "http://localhost:5000";
 
     const deletePlant = async e => {
         e.preventDefault();
         try {
             const response = await fetch(
-                `${host}/dashboard/4c397315-3b56-4652-b673-f98219e4517e/${plant.id}`,
+                `${host}/dashboard/${user_id}/${plant.id}`,
                 {
                     method: "PUT",
                     headers: {"Content-Type": "application/json"}
                 }
             );
-
+            
             window.location = '/dashboard';
         } catch (error) {
             console.error(error.message);

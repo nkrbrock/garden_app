@@ -49,10 +49,11 @@ const Dashboard = ({ setAuth }) => {
                 <h1 className="mt-5">Hello, {name}!</h1>
                 <PlantInput user_id = {decoded.user.id}/>
                 <PlantList user_id = {decoded.user.id}/>
-            </div>
-            <button className="btn btn-primary" onClick={e => logout(e)}>
+                <button className="btn btn-primary" onClick={e => logout(e)}>
                         Log Out
                 </button>
+            </div>
+            
             <Footer />
         </Fragment>
     )

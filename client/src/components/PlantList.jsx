@@ -14,6 +14,7 @@ const PlantList = ({user_id}) => {
             const jsonData = await response.json();
 
             setPlants(jsonData);
+
         } catch (error) {
             console.error(error.message);
         }
@@ -54,7 +55,7 @@ const PlantList = ({user_id}) => {
                                     <p className="card-text">Height: {plant.height}</p>
                                     <p className="card-text">Width: {plant.width}</p>
                                     <p className="card-text">Hardiness Zone: {plant.zones}</p>
-                                    <Delete plant={plant} />
+                                    <Delete user_id={user_id} plant={plant} />
                                 </div>
                             </div>
                         </div>

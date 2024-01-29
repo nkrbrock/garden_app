@@ -45,10 +45,9 @@ const Login = ({ setAuth }) => {
 
     return(
         <Fragment>
-            <Link to="/">Back</Link>
             <div className="container">
+                <Link className="navigation" to="/">Back</Link>
                 <form onSubmit={onSubmitForm}>
-                    <img className="mb-4" src="" alt="" width="72" height="57" />
                     <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
 
                     <div className="form-floating">
@@ -75,7 +74,7 @@ const Login = ({ setAuth }) => {
                     </div>
                     <button className="btn btn-primary py-2">Log In</button>
                 </form>
-                <Link to="/register">Register</Link>
+                <Link className="navigation" to="/register">Register</Link>
             </div>
             <Footer />
         </Fragment>

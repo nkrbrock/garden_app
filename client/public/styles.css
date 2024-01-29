@@ -3,6 +3,23 @@ a {
     text-decoration: none;
 }
 
+footer {
+    position: absolute;
+    bottom: 0;
+    height: 70;
+    margin-bottom: 10px;
+    display: block;
+    width: 100%;
+}
+
+svg {
+    margin-right: 5px;
+}
+
+.foot-img {
+    color: rgb(32, 107, 205);
+}
+
 .btn {
     margin-top: 5px;
     margin-bottom: 5px;
@@ -16,4 +33,16 @@ a {
 
 .form-floating {
     margin-bottom: 5px;
+}
+
+.portal {
+    display: block;
+    width: 100%;
+}
+
+.navigation {
+    font-weight: 400;
+    margin-bottom: 10px;
+    text-decoration: solid;
+    text-decoration-line: underline;
 }

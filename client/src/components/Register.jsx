@@ -52,7 +52,7 @@ const Register = ({setAuth}) => {
     return(
         <Fragment>
             <div className="container">
-                <Link to="/">Back</Link>
+                <Link className="navigation" to="/">Back</Link>
                 <h1 className="text-center my-5">Register</h1>
                 <form onSubmit={onSubmitForm}>
                     <div className="form-floating">
@@ -112,12 +112,12 @@ const Register = ({setAuth}) => {
                     </div>
 
                     <button 
-                        className="btn btn-primary w-100 py-2"
+                        className="btn btn-primary py-2"
                     >
                         Register
                     </button>
                 </form>
-                <Link to="/login">Log In</Link>
+                <Link className="navigation" to="/login">Log In</Link>
             </div>
             <Footer />
         </Fragment>
