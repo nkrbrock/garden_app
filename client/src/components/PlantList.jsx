@@ -1,34 +1,21 @@
 import React, {Fragment, useState, useEffect} from "react";
 import Delete from "./Delete";
 
-const PlantList = ({user_id}) => {
+const PlantList = ({allPlants, setPlantsChange}) => {
     const [plants, setPlants] = useState([]);
     const [loading, setLoading] = useState(false);
 
     const host = "http://localhost:5000";
 
-    const getPlants = async() => {
-        try {
-            //TODO: MAKE DYNAMIC FOR EACH USER
-            const response = await fetch(`${host}/dashboard/${user_id}`);
-            const jsonData = await response.json();
-
-            setPlants(jsonData);
-
-        } catch (error) {
-            console.error(error.message);
-        }
-    };
-
 
     useEffect(() => {
         setLoading(true);
-        getPlants();
+        setPlants(allPlants);
         setTimeout(() => {
             setLoading(false)
         }, 500);
-        
-    }, []);
+        console.log(allPlants);
+    }, [allPlants]);
 
     if (loading) {
         return (
@@ -36,17 +23,11 @@ const PlantList = ({user_id}) => {
         );
     }
 
-    if (plants.length === 0) {
-        return (
-            <h2>Type your first entry above!</h2>
-        );
-    }
-
     return(
         <Fragment>
             <div className="container plantlist">
                 <div className="row">
-                    {plants.map(plant => (
+                    {plants.length !== 0 && plants[0].id !== null && plants.map(plant => (
                         <div className="col-lg-3 col-md-4 col-sm-6 mb-5"  key={plant.id}>
                             <div className="card">
                                 <div className="card-body">
@@ -55,7 +36,7 @@ const PlantList = ({user_id}) => {
                                     <p className="card-text">Height: {plant.height}</p>
                                     <p className="card-text">Width: {plant.width}</p>
                                     <p className="card-text">Hardiness Zone: {plant.zones}</p>
-                                    <Delete user_id={user_id} plant={plant} />
+                                    <Delete plant={plant} setPlantsChange={setPlantsChange} />
                                 </div>
                             </div>
                         </div>

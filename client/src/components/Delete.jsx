@@ -1,20 +1,26 @@
 import React, { Fragment } from "react";
 
-const Delete = ({user_id, plant}) => {
+const Delete = ({plant, setPlantsChange}) => {
     const host = "http://localhost:5000";
 
     const deletePlant = async e => {
         e.preventDefault();
         try {
+
+            const myHeaders = new Headers();
+
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("jwt_token", localStorage.token)
+
             const response = await fetch(
-                `${host}/dashboard/${user_id}/${plant.id}`,
+                `${host}/dashboard/${plant.id}`,
                 {
                     method: "PUT",
-                    headers: {"Content-Type": "application/json"}
+                    headers: myHeaders
                 }
             );
-            
-            window.location = '/dashboard';
+
+            setPlantsChange(true);
         } catch (error) {
             console.error(error.message);
         }

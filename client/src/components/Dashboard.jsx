@@ -3,26 +3,26 @@ import PlantInput from "./PlantInput";
 import PlantList from "./PlantList";
 import Footer from "./Footer";
 import { toast } from "react-toastify";
-import { jwtDecode } from "jwt-decode";
 
 const Dashboard = ({ setAuth }) => {
 
     const [name, setName] = useState("")
-
-    const token = localStorage.token;
-    const decoded = jwtDecode(token);
+    const [allPlants, setAllPlants] = useState([]);
+    const [plantsChange, setPlantsChange] = useState(false);
 
     async function getName () {
         try {
             const response = await fetch("http://localhost:5000/dashboard/",
             {
-                method: "POST",
+                method: "GET",
                 headers: {jwt_token: localStorage.token}
             });
 
             const parseRes = await response.json();
 
-            setName(parseRes.uname);
+            setAllPlants(parseRes);
+
+            setName(parseRes[0].uname);
 
             
         } catch (error) {
@@ -39,16 +39,15 @@ const Dashboard = ({ setAuth }) => {
 
     useEffect(() => {
         getName();
-    }, []);
-
-    
+        setPlantsChange(false);
+    }, [plantsChange]);
 
     return(
         <Fragment>
             <div className="container">
                 <h1 className="mt-5">Hello, {name}!</h1>
-                <PlantInput user_id = {decoded.user.id}/>
-                <PlantList user_id = {decoded.user.id}/>
+                <PlantInput setPlantsChange={setPlantsChange}/>
+                <PlantList allPlants = {allPlants} setPlantsChange={setPlantsChange} />
                 <button className="btn btn-primary" onClick={e => logout(e)}>
                         Log Out
                 </button>

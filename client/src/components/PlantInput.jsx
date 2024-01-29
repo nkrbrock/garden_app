@@ -1,20 +1,28 @@
 import React, {Fragment, useState} from "react";
 import Alert from "./Alert";
 
-const PlantInput = ({user_id}) => {
+const PlantInput = ({ setPlantsChange}) => {
     const [plantName, setPlantName] = useState("");
 
     const host = "http://localhost:5000";
+
     const [alert, setAlert] = useState("");
 
     const addPlant = async e => {
         e.preventDefault();
         try {
+            const myHeaders = new Headers();
+
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("jwt_token", localStorage.token);
             //Retrieve list of possible plants and see if user entered valid name
             const possiblePlants = await fetch(`${host}/plants`);
             const jsonData = await possiblePlants.json();
             
-            const userPlants = await fetch(`${host}/dashboard/${user_id}`);
+            const userPlants = await fetch(`${host}/dashboard/`, {
+                method: "GET",
+                headers: myHeaders
+            });
             const userData = await userPlants.json();
 
             var snames = [];
@@ -33,15 +41,15 @@ const PlantInput = ({user_id}) => {
                 } else {
                     const body = {plantName}
                     const response = await fetch(
-                        `${host}/dashboard/${user_id}`,
+                        `${host}/dashboard/`,
                         {
                             method: "PUT",
-                            headers: {"Content-Type": "application/json"},
+                            headers: myHeaders,
                             body: JSON.stringify(body)
                         }
                     );
 
-                    window.location = "/dashboard";
+                    setPlantsChange(true);
                 }
             } else {
                 setAlert("missing");
